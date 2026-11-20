@@ -13,26 +13,46 @@ android {
     lint {
         disable += 'MissingTranslation'
     }
-    
+
     defaultConfig {
         applicationId "org.woheller69.whisper"
         minSdk 28
         targetSdk 35
         versionCode 40
-        versionName "3.10"
-
-        ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a"
-        }
+        versionName "4.0" // bumped from 3.10 for the dual-flavor release
     }
 
     buildFeatures {
         buildConfig = true
         viewBinding = true
     }
+
+    flavorDimensions "device"
+
+    productFlavors {
+        catS22 {
+            dimension "device"
+            ndk {
+                abiFilters "armeabi-v7a"
+            }
+            buildConfigField "boolean", "IS_SMARTPHONE", "false"
+            buildConfigField "String", "MODEL_VARIANT", '"v1_tiny"'
+        }
+
+        smartphone {
+            dimension "device"
+            ndk {
+                abiFilters "arm64-v8a"
+            }
+            buildConfigField "boolean", "IS_SMARTPHONE", "true"
+            // Change to '"v1_base"' if you prefer the 5-file Moonshine v1 Base drop-in
+            buildConfigField "String", "MODEL_VARIANT", '"v2_medium"'
+        }
+    }
+
     signingConfigs {
         release {
-                        if (System.getenv("ANDROID_KEYSTORE_PATH")) {
+            if (System.getenv("ANDROID_KEYSTORE_PATH")) {
                 storeFile file(System.getenv("ANDROID_KEYSTORE_PATH"))
                 storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
                 keyAlias System.getenv("ANDROID_KEY_ALIAS")
@@ -44,50 +64,3 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            // Inherits ndk.abiFilters from defaultConfig
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = '11'
-    }
-
-    packaging {
-        jniLibs {
-            // Resolves conflict between WebRTC VAD and Sherpa-ONNX shared C++ runtime
-            pickFirsts.add("**/libc++_shared.so")
-        }
-    }
-
-    dependenciesInfo {
-        includeInApk = false
-        includeInBundle = false
-    }
-}
-
-dependencies {
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
-    implementation 'androidx.preference:preference:1.2.1'
-
-    implementation 'com.github.gkonovalov.android-vad:webrtc:2.0.10'
-    implementation 'com.github.houbb:opencc4j:1.14.0'
-    implementation 'com.github.woheller69:FreeDroidWarn:+'
-
-    // Add these two lines to satisfy WhisperEngineJava.java
-    implementation 'org.tensorflow:tensorflow-lite:2.16.1'
-    implementation 'org.tensorflow:tensorflow-lite-support:0.4.4'
-
-    // Sherpa-ONNX local binary AAR
-    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
-}
