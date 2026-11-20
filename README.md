@@ -21,6 +21,7 @@
 * **Zero-Setup Bundled Models:** All ONNX model files are bundled uncompressed inside the APK and automatically extracted on first launch.
 
 --
+Tailored for the CAT S22 Flip (Android Go), this modified fork of [woheller69/whisperIME](https://github.com/woheller69/whisperIME) replaces Whisper TensorFlow Lite with **Sherpa-ONNX Moonshine Tiny (INT8)** and pairs it with a compact, 52dp stone-rune punctuation toolbar built for a 2.8" display.
 
 ## Installation
 
@@ -30,7 +31,7 @@
 
 
 ---
-Tailored for the CAT S22 Flip (Android Go), this modified fork of [woheller69/whisperIME](https://github.com/woheller69/whisperIME) replaces Whisper TensorFlow Lite with **Sherpa-ONNX Moonshine Tiny (INT8)** and pairs it with a compact, 52dp stone-rune punctuation toolbar built for a 2.8" display.
+
 ## Attribution & Licenses
 
 * **Upstream App:** [woheller69/whisperIME](https://github.com/woheller69/whisperIME) / [vilassn/whisper_android](https://github.com/vilassn/whisper_android) (MIT / GPL-3.0)
