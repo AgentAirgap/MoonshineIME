@@ -64,3 +64,62 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            // Inherits ndk.abiFilters from the active product flavor
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def flavor = variant.flavorName
+            def version = variant.versionName
+            if (variant.buildType.name == "release") {
+                outputFileName = "MoonshineIME-${flavor}-v${version}.apk"
+            } else {
+                outputFileName = "MoonshineIME-${flavor}-v${version}-debug.apk"
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+
+    packaging {
+        jniLibs {
+            // Resolves conflict between WebRTC VAD and Sherpa-ONNX shared C++ runtime
+            pickFirsts.add("**/libc++_shared.so")
+        }
+    }
+
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    implementation 'androidx.preference:preference:1.2.1'
+
+    implementation 'com.github.gkonovalov.android-vad:webrtc:2.0.10'
+    implementation 'com.github.houbb:opencc4j:1.14.0'
+    implementation 'com.github.woheller69:FreeDroidWarn:+'
+
+    // Add these two lines to satisfy WhisperEngineJava.java
+    implementation 'org.tensorflow:tensorflow-lite:2.16.1'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.4.4'
+
+    // Sherpa-ONNX local binary AAR
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
+}
