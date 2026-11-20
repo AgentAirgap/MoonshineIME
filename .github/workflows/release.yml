@@ -35,11 +35,11 @@ jobs:
 
       - name: Decode Release Keystore
         run: |
-          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > app/release.jks
+          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > "${{ github.workspace }}/release.jks"
 
       - name: Clean environment and Build Signed Release APK
         env:
-          ANDROID_KEYSTORE_PATH: app/release.jks
+          ANDROID_KEYSTORE_PATH: ${{ github.workspace }}/release.jks
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
@@ -47,7 +47,7 @@ jobs:
           rm -f local.properties
           rm -f app/src/main/java/com/whispertflite/engine/WhisperEngineJava.java
           gradle assembleRelease --stacktrace
-          rm -f app/release.jks
+          rm -f "${{ github.workspace }}/release.jks"
 
       - name: Publish to GitHub Release
         uses: softprops/action-gh-release@v2
