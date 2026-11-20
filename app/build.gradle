@@ -18,8 +18,8 @@ android {
         applicationId "org.woheller69.whisper"
         minSdk 28
         targetSdk 35
-        versionCode 38
-        versionName "3.8"
+        versionCode 39
+        versionName "3.9"
 
         ndk {
             abiFilters "armeabi-v7a"
@@ -30,9 +30,21 @@ android {
         buildConfig = true
         viewBinding = true
     }
+    signingConfigs {
+        release {
+            signingConfig signingConfigs.release
+            if (System.getenv("ANDROID_KEYSTORE_PATH")) {
+                storeFile file(System.getenv("ANDROID_KEYSTORE_PATH"))
+                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword System.getenv("ANDROID_KEY_PASSWORD")
+            }
+        }
+    }
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
