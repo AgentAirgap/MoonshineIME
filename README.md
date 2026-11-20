@@ -1,10 +1,4 @@
-
-
 ```text
-═════════════════════════════════════════════════════════════
- ~🌿~   ANCIENT RUNE SPEECH TO TEXT   ~🌿~
-═════════════════════════════════════════════════════════════
-
  __  __   ____   ____  _   _  ____  _   _ ___ _   _ _____ 
 |  \/  | / __ \ / __ \| \ | |/ ___|| | | |_ _| \ | | ____|
 | |\/| || |  | | |  | |  \| |\___ \| |_| || ||  \| |  _|  
@@ -16,88 +10,37 @@
                  | |    | |\/| |  | __|  
                  | |    | |  | |  | |___
                 |___|   |_|  |_|  |_____| 
+```
 
-═════════════════════════════════════════════════════════════
-    [ Snapdragon 215 • 32-Bit ARMv7-A • Sherpa-ONNX INT8 ]
-─────────────────────────────────────────────────────────────
-  (HEX)   (PEB)   (DSC)   (DIA)   (OBS)   (SHD)     ((◎))
-  /===\   .---.   .---.    / \    .---.   .---.    .-'-'-.
- |[ ⌨ ]| |( , )| |( . )|  <? ?>  |[ ! ]| |['']|   | (©) |
-  \===/   '---'   '---'    \ /    '---'    \_/     '-.-.-'
-  [RUB]   [AMB]   [SUN]   [JAD]   [AZU]   [AME]    [COIN]
-   RED     ORG     YEL     GRN     BLU     VIO      CYAN
-─────────────────────────────────────────────────────────────
-───────────────────────────────────────────────────────────────
-A modified fork of [woheller69/whisperIME](https://github.com/woheller69/whisperIME) tailored specifically for the CAT S22 Flip running Android Go.
+A modified fork of [woheller69/whisperIME](https://github.com/woheller69/whisperIME) tailored for the CAT S22 Flip running Android Go.
 
-This fork replaces the original Whisper TensorFlow Lite inference backend with Sherpa-ONNX Moonshine Tiny (INT8) and overhauls the interface into a compact, fantasy-themed stone rune toolbar designed for the phone's 2.8" display.
+Replaces the original Whisper TensorFlow Lite backend with **Sherpa-ONNX Moonshine Tiny (INT8)** and overhauls the UI into a compact, 52dp stone-rune punctuation toolbar built for a 2.8" display.
 
 ---
 
-## Modifications
+## Highlights
 
-### 1. Inference Engine: Whisper TFLite → Moonshine Tiny (INT8)
-* **Backend:** Replaced the Whisper TFLite runtime with `sherpa-onnx` running the **Moonshine Tiny (INT8 quantized)** model architecture.
-* **Architecture:** Targeted and compiled with native libraries for 32-bit ARM (`armeabi-v7a`) to run locally on the Qualcomm Snapdragon 215 chipset.
-* **Performance:** Near-instant offline transcription with low memory overhead, zero network dependencies, and no thermal throttling.
+* **Offline Moonshine Tiny (INT8):** Powered by `sherpa-onnx` compiled for 32-bit ARM (`armeabi-v7a`) on the Snapdragon 215. Zero network dependencies.
+* **Zero-Setup Bundled Models:** All ONNX model files are bundled uncompressed inside the APK and automatically extracted on first launch.
+* **Compact 2.8" Toolbar:** Single-row 52dp bar keeping >85% of the screen visible, with stone-rune punctuation keys (`,`, `.`, `?`, `!`, `'`, `⌨`), smart spacing, and a touch-to-record silver coin button.
 
-### 2. Rune Punctuation Bar & RPG UI
-* **Screen-Optimized Toolbar:** Replaced the oversized stock IME view with a slim 52dp single-row bar, keeping over 85% of the 2.8" screen visible during dictation.
-* **Ancient Stone Runes:** Common punctuation targets (`,`, `.`, `?`, `!`, `'`, `⌨`) rendered as weathered, moss-covered stone runes with chiseled, glowing glyphs set against an aged canvas deck.
-* **Spiraling Branch Separator:** A gnarled oak branch wrapped in leafy briar vines frames the top of the bar, cleanly separating it from the active text field.
-* **Sacred Geometry Coin:** Touch-to-record action button styled as an engraved silver coin with sacred geometry linework and a horizontal-axis 3D spin animation.
-* **Smart Spacing:** Punctuation keys automatically detect and strip trailing whitespace from model output before committing punctuation, followed by standard spacing.
+---
+
+## Installation
+
+1. Download the latest `app-release.apk` from [**Releases**](https://github.com/AgentAirgap/MoonshineIME/releases/latest).
+2. Install the APK on your device (or via `adb install -r app-release.apk`).
+3. Enable the keyboard in **Settings → System → Languages & input → On-screen keyboard**.
+
+Models extract automatically on first dictation—no manual `adb push` required.
 
 ---
 
 ## Attribution & Licenses
 
-* **Upstream Android Application:** [woheller69/whisperIME](https://github.com/woheller69/whisperIME), based on [vilassn/whisper_android](https://github.com/vilassn/whisper_android) by Vilas Ninawe (MIT License)
-* **ASR Architecture:** [Useful Sensors - Moonshine](https://github.com/usefulsensors/moonshine) (MIT License)
-* **On-Device Inference:** [k2-fsa/sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) (Apache-2.0)
-* **Runtime:** [Microsoft ONNX Runtime](https://github.com/microsoft/onnxruntime) (MIT License)
-* **Voice Activity Detection:** [gkonovalov/android-vad](https://github.com/gkonovalov/android-vad) (MIT License)
+* **Upstream App:** [woheller69/whisperIME](https://github.com/woheller69/whisperIME) / [vilassn/whisper_android](https://github.com/vilassn/whisper_android) (MIT / GPL-3.0)
+* **ASR Architecture:** [Useful Sensors – Moonshine](https://github.com/usefulsensors/moonshine) (MIT)
+* **Inference & Bindings:** [k2-fsa/sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) (Apache-2.0)
+* **Runtime:** [Microsoft ONNX Runtime](https://github.com/microsoft/onnxruntime) (MIT)
+* **VAD:** [gkonovalov/android-vad](https://github.com/gkonovalov/android-vad) (MIT)
 * **Chinese Conversion:** [houbb/opencc4j](https://github.com/houbb/opencc4j) (Apache-2.0)
-
----
-
-## Setup & Deployment
-
-### 1. Model Files
-The app expects the Moonshine ONNX model files in the application's external files directory:  
-`/sdcard/Android/data/org.woheller69.whisper/files/`
-
-Download the pre-converted INT8 model files from [csukuangfj/sherpa-onnx-moonshine-tiny-en-int8](https://huggingface.co/csukuangfj/sherpa-onnx-moonshine-tiny-en-int8):
-* `preprocess.onnx`
-* `encode.int8.onnx`
-* `uncached_decode.int8.onnx`
-* `cached_decode.int8.onnx`
-* `tokens.txt`
-
-### 2. Push via ADB
-```cmd
-adb shell mkdir -p /sdcard/Android/data/org.woheller69.whisper/files/
-adb push preprocess.onnx /sdcard/Android/data/org.woheller69.whisper/files/
-adb push encode.int8.onnx /sdcard/Android/data/org.woheller69.whisper/files/
-adb push uncached_decode.int8.onnx /sdcard/Android/data/org.woheller69.whisper/files/
-adb push cached_decode.int8.onnx /sdcard/Android/data/org.woheller69.whisper/files/
-adb push tokens.txt /sdcard/Android/data/org.woheller69.whisper/files/
-
-## Attribution & Licenses
-
-This project incorporates open-source software and model architectures licensed under permissive terms:
-
-* **Moonshine ASR Architecture:**  
-  Copyright (c) 2024 Useful Sensors, Inc.  
-  Licensed under the [MIT License](https://github.com/usefulsensors/moonshine/blob/main/LICENSE).
-
-* **Sherpa-ONNX Runtime & Android Bindings:**  
-  Copyright (c) 2022-2024 Xiaomi Corporation / k2-fsa contributors  
-  Licensed under the [Apache License 2.0](https://github.com/k2-fsa/sherpa-onnx/blob/master/LICENSE).
-
-* **Upstream whisperIME Android App:**  
-  Copyright (c) 2023-2024 woheller69 / Vilas Ninawe  
-  Licensed under the [GNU General Public License v3.0](https://github.com/woheller69/whisperIME/blob/master/LICENSE) (or MIT where applicable).
-
-* **ONNX Runtime:**  
-  Copyright (c) Microsoft Corporation. Licensed under the [MIT License](https://github.com/microsoft/onnxruntime/blob/main/LICENSE).
