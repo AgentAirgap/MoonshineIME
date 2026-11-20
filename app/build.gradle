@@ -4,6 +4,9 @@ plugins {
 }
 
 android {
+    aaptOptions {
+        noCompress 'onnx'
+    }
     namespace 'com.whispertflite'
     compileSdk 35
 

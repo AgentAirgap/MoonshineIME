@@ -34,6 +34,8 @@ class MoonshineEngine(private val context: Context) : WhisperEngine {
 
         val modelDir = context.getExternalFilesDir(null) ?: context.filesDir
 
+        ModelAssetManager.ensureModelsExtracted(context, modelDir)
+
         val preprocessor = resolveFile(modelDir, "preprocess.onnx")
         val encoder = resolveFile(modelDir, "encode.int8.onnx", "encode.onnx", "encoder_model.int8.onnx")
         val uncachedDecoder = resolveFile(modelDir, "uncached_decode.int8.onnx", "uncached_decode.onnx", "decoder_model_merged.int8.onnx")
